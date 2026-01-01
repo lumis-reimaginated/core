@@ -24,7 +24,7 @@ object CreativeTabs {
         .build()
     })
     
-    fun register(movEventBus: IEventBus) {
-        CREATIVE_MODE_TABS.register(movEventBus)
+    fun register(modEventBus: IEventBus) {
+        CREATIVE_MODE_TABS.register(modEventBus)
     }
 }

@@ -1,8 +1,10 @@
 package com.lumi.reimagined
 
+import com.lumi.reimagined.registry.Attachments
 import com.lumi.reimagined.registry.ModBlocks
 import com.lumi.reimagined.registry.CreativeTabs
 import com.lumi.reimagined.registry.ModItems
+import com.lumi.reimagined.services.PlayersService
 import com.mojang.logging.LogUtils
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.bus.api.SubscribeEvent
@@ -27,14 +29,15 @@ class Reimagined(modEventBus: IEventBus, modContainer: ModContainer) {
         modEventBus.addListener(::onCommonSettup);
         modEventBus.addListener(::onClientSettup);
 
-        // Register defferred registers
+        // Register deferred registers
         ModBlocks.register(modEventBus)
         ModItems.register(modEventBus)
+        Attachments.register(modEventBus)
         CreativeTabs.register(modEventBus)
-        
-        // Register ourselves for listening to events
-        NeoForge.EVENT_BUS.register(this)
 
+        // Register event listeners
+        NeoForge.EVENT_BUS.register(this)
+        NeoForge.EVENT_BUS.register(PlayersService)
 
         // Register mod's configuration specifications
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC)

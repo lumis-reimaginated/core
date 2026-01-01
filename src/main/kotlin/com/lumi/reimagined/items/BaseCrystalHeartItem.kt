@@ -1,5 +1,6 @@
 package com.lumi.reimagined.items
 
+import com.lumi.reimagined.Reimagined
 import com.lumi.reimagined.services.PlayersService
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.InteractionHand
@@ -13,44 +14,41 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
 
-open class BaseCrystalHeartItem() : Item(Properties()) {
+abstract class BaseCrystalHeartItem() : Item(Properties()) {
 
-    override fun getMaxStackSize(stack: ItemStack): Int = 1;
-    override fun getDefaultMaxStackSize(): Int = 1;
+    abstract val type: CrystalHeartItemType
 
-    override fun getUseAnimation(stack: ItemStack): UseAnim = UseAnim.EAT;
-    override fun getUseDuration(stack: ItemStack, entity: LivingEntity): Int = 32;
+    override fun getMaxStackSize(stack: ItemStack): Int = 1
+    override fun getDefaultMaxStackSize(): Int = 1
+
+    override fun getUseAnimation(stack: ItemStack): UseAnim = UseAnim.EAT
+    override fun getUseDuration(stack: ItemStack, entity: LivingEntity): Int = 32
 
 
     override fun use(level: Level, player: Player, hand: InteractionHand): InteractionResultHolder<ItemStack?> {
-        if (level.isClientSide()) {
+
+        val stack = player.getItemInHand(hand)
+
+        if (!level.isClientSide) {
+            val canEat = PlayersService.canEatCrystalHeart(player, type)
+            if (!canEat) return InteractionResultHolder.fail(stack)
             player.startUsingItem(hand)
-            return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), true)
         }
 
-        PlayersService.canEatCrystalHeart(player, this);
-        
-        return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), false);
+        return InteractionResultHolder.fail(stack)
     }
 
     override fun finishUsingItem(stack: ItemStack, level: Level, entity: LivingEntity): ItemStack {
-
-        if (entity is Player) {
-            val inst = entity.getAttribute(Attributes.MAX_HEALTH)
-            if (inst != null) {
-
-                val id = ResourceLocation.fromNamespaceAndPath("reimagined", "max_health");
-
-                inst.removeModifier(id);
-                val mod = AttributeModifier(id, 5.0, AttributeModifier.Operation.ADD_VALUE);
-                inst.addPermanentModifier(mod);
-
-                entity.heal(5.0f);
-            }
-        }
-
+        if (!level.isClientSide && entity is Player) PlayersService.ateCrystalHeart(entity, type)
         stack.shrink(1);
         return stack;
     }
 
+    enum class CrystalHeartItemType {
+        UNDEFINED { override fun asFlag(): Int = 0 },
+        AMETHYST { override fun asFlag(): Int = 1 shl 0 },
+        BROKEN { override fun asFlag(): Int = 0 };
+
+        abstract fun asFlag(): Int
+    }
 }
