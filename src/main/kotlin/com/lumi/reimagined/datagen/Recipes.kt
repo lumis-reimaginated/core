@@ -20,7 +20,7 @@ class Recipes : RecipeProvider, IConditionBuilder {
     override fun buildRecipes(output: RecipeOutput) {
 
         ShapedRecipeBuilder.shaped(
-            RecipeCategory.BUILDING_BLOCKS,
+            RecipeCategory.FOOD,
             ModItems.AMETHIST_HEART.get())
             
             .define('A', Items.AMETHYST_SHARD)
@@ -30,6 +30,19 @@ class Recipes : RecipeProvider, IConditionBuilder {
             .pattern(" A ")
             
             .unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
+            .save(output);
+
+        ShapedRecipeBuilder.shaped(
+            RecipeCategory.FOOD,
+            ModItems.QUARTZ_HEART.get())
+
+            .define('Q', Items.QUARTZ)
+
+            .pattern("Q Q")
+            .pattern("QQQ")
+            .pattern(" Q ")
+
+            .unlockedBy("has_quartz", has(Items.QUARTZ))
             .save(output);
         
     }

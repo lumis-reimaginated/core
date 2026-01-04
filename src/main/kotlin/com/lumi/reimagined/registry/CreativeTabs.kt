@@ -19,6 +19,9 @@ object CreativeTabs {
             // All mod items must be listed here!
             
             output.accept { ModItems.AMETHIST_HEART.get() }
+            output.accept { ModItems.QUARTZ_HEART.get() }
+            output.accept { ModItems.RUBI_HEART.get() }
+            output.accept { ModItems.AQUAMARINE_HEART.get() }
             output.accept { ModItems.CREATIVE_BROKEN_HEART.get() }
         }
         .build()

@@ -45,10 +45,14 @@ abstract class BaseCrystalHeartItem() : Item(Properties()) {
     }
 
     enum class CrystalHeartItemType {
-        UNDEFINED { override fun asFlag(): Int = 0 },
-        AMETHYST { override fun asFlag(): Int = 1 shl 0 },
-        BROKEN { override fun asFlag(): Int = 0 };
+        AMETHYST    { override fun asFlag(): Int = 1 shl 0 },
+        QUARTZ      { override fun asFlag(): Int = 1 shl 1 },
+        RUBI        { override fun asFlag(): Int = 1 shl 2 },
+        AQUAMARINE  { override fun asFlag(): Int = 1 shl 3 },
 
-        abstract fun asFlag(): Int
+        UNDEFINED,
+        BROKEN;
+
+        open fun asFlag(): Int = 0
     }
 }
