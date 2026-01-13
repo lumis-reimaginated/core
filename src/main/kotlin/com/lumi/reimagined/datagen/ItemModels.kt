@@ -21,7 +21,7 @@ class ItemModels : ItemModelProvider {
         basicItem(ModItems.AMETHIST_HEART)
         basicItem(ModItems.QUARTZ_HEART)
         basicItem(ModItems.RUBI_HEART)
-        basicItem(ModItems.AQUAMARINE_HEART)
+        basicItem(ModItems.PRISMARINE_HEART)
         basicItem(ModItems.CREATIVE_BROKEN_HEART)
         
     }

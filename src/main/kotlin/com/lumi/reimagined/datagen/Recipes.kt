@@ -1,6 +1,7 @@
 package com.lumi.reimagined.datagen
 
 import com.lumi.reimagined.registry.ModItems
+import com.simibubi.create.api.data.recipe.MechanicalCraftingRecipeBuilder
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.RecipeCategory
@@ -44,6 +45,16 @@ class Recipes : RecipeProvider, IConditionBuilder {
 
             .unlockedBy("has_quartz", has(Items.QUARTZ))
             .save(output);
-        
+
+        MechanicalCraftingRecipeBuilder.shapedRecipe(Items.NETHERITE_HOE)
+
+            .key('P', Items.PUMPKIN)
+            .key('C', Items.COPPER_BLOCK)
+
+            .patternLine(" P ")
+            .patternLine("CCC")
+            .patternLine(" C ")
+
+            .build(output)
     }
 }

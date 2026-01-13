@@ -71,10 +71,10 @@ object PlayersService {
         if (inst != null) {
 
             val id = ResourceLocation.fromNamespaceAndPath("reimagined", "max_health");
-            val newAmount = data.crystalHearts.countOneBits() * 5;
+            val newAmount = -10 + data.crystalHearts.countOneBits().toDouble() * 7.5;
 
             inst.removeModifier(id);
-            val mod = AttributeModifier(id, newAmount.toDouble(), AttributeModifier.Operation.ADD_VALUE);
+            val mod = AttributeModifier(id, newAmount, AttributeModifier.Operation.ADD_VALUE);
             inst.addPermanentModifier(mod);
 
             player.heal(0f);

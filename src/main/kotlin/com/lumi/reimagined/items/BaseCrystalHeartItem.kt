@@ -1,13 +1,9 @@
 package com.lumi.reimagined.items
 
-import com.lumi.reimagined.Reimagined
 import com.lumi.reimagined.services.PlayersService
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.attributes.AttributeModifier
-import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -48,7 +44,7 @@ abstract class BaseCrystalHeartItem() : Item(Properties()) {
         AMETHYST    { override fun asFlag(): Int = 1 shl 0 },
         QUARTZ      { override fun asFlag(): Int = 1 shl 1 },
         RUBI        { override fun asFlag(): Int = 1 shl 2 },
-        AQUAMARINE  { override fun asFlag(): Int = 1 shl 3 },
+        PRISMARINE  { override fun asFlag(): Int = 1 shl 3 },
 
         UNDEFINED,
         BROKEN;
