@@ -25,12 +25,13 @@ class Recipes : RecipeProvider, IConditionBuilder {
             ModItems.AMETHIST_HEART.get())
             
             .define('A', Items.AMETHYST_SHARD)
-            
+            .define('D', Items.DIAMOND)
+
             .pattern("A A")
-            .pattern("AAA")
+            .pattern("ADA")
             .pattern(" A ")
             
-            .unlockedBy("has_amethyst", has(Items.AMETHYST_SHARD))
+            .unlockedBy("has_diamond", has(Items.DIAMOND))
             .save(output);
 
         ShapedRecipeBuilder.shaped(
@@ -38,12 +39,27 @@ class Recipes : RecipeProvider, IConditionBuilder {
             ModItems.QUARTZ_HEART.get())
 
             .define('Q', Items.QUARTZ)
+            .define('B', Items.BLAZE_POWDER)
 
             .pattern("Q Q")
-            .pattern("QQQ")
+            .pattern("QBQ")
             .pattern(" Q ")
 
-            .unlockedBy("has_quartz", has(Items.QUARTZ))
+            .unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER))
+            .save(output);
+
+        ShapedRecipeBuilder.shaped(
+            RecipeCategory.FOOD,
+            ModItems.QUARTZ_HEART.get())
+
+            .define('P', Items.PRISMARINE_SHARD)
+            .define('C', Items.HEART_OF_THE_SEA)
+
+            .pattern("P P")
+            .pattern("PCP")
+            .pattern(" P ")
+
+            .unlockedBy("has_heart_of_the_sea", has(Items.HEART_OF_THE_SEA))
             .save(output);
 
         MechanicalCraftingRecipeBuilder.shapedRecipe(Items.NETHERITE_HOE)

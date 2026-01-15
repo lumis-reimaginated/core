@@ -1,10 +1,10 @@
 package com.lumi.reimagined
 
 import com.lumi.reimagined.registry.Attachments
-import com.lumi.reimagined.registry.ModBlocks
 import com.lumi.reimagined.registry.CreativeTabs
+import com.lumi.reimagined.registry.ModBlocks
 import com.lumi.reimagined.registry.ModItems
-import com.lumi.reimagined.services.PlayersService
+import com.lumi.reimagined.services.EventsService
 import com.mojang.logging.LogUtils
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.bus.api.SubscribeEvent
@@ -37,7 +37,7 @@ class Reimagined(modEventBus: IEventBus, modContainer: ModContainer) {
 
         // Register event listeners
         NeoForge.EVENT_BUS.register(this)
-        NeoForge.EVENT_BUS.register(PlayersService)
+        NeoForge.EVENT_BUS.register(EventsService)
 
         // Register mod's configuration specifications
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC)
@@ -45,11 +45,11 @@ class Reimagined(modEventBus: IEventBus, modContainer: ModContainer) {
 
 
     fun onCommonSettup(event: FMLCommonSetupEvent?) {
-        LOGGER.info("HELLO from common")
+        //LOGGER.info("HELLO from common")
     }
     
     fun onClientSettup(event: FMLClientSetupEvent?) {
-        LOGGER.info("HELLO from client")
+        //LOGGER.info("HELLO from client")
     }
     
     @SubscribeEvent
