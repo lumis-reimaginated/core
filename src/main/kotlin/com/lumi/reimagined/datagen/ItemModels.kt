@@ -23,7 +23,8 @@ class ItemModels : ItemModelProvider {
         basicItem(ModItems.RUBI_HEART)
         basicItem(ModItems.PRISMARINE_HEART)
         basicItem(ModItems.CREATIVE_BROKEN_HEART)
-        
+
+        modelItem(ModItems.OAK_BED, modLoc("block/oak_bed"))
     }
     
     

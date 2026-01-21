@@ -7,6 +7,7 @@ import net.minecraft.data.loot.BlockLootSubProvider
 import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.storage.loot.LootTable
 
 class LootTables : BlockLootSubProvider {
     
@@ -21,14 +22,10 @@ class LootTables : BlockLootSubProvider {
     }
     
     override fun generate() {
-//        dropSelf(ModBlocks.SILICON_BLOCK.block.get())
-//        dropSelf(ModBlocks.LITOGRAPHY_MACHINE.block.get())
-//        
-//        add(ModBlocks.SILICON_BLOCK.block.get())
-//            {_ -> createSingleItemTable(ModBlocks.SILICON_BLOCK.item.get()) }
-//        
-//        add(ModBlocks.LITOGRAPHY_MACHINE.block.get())
-//            { _ -> createSingleItemTable(ModItems.LITOGRAPHY_MACHINE.get()) }
+        add(ModBlocks.EXTENSION_BLOCK.get()) {_ -> LootTable.lootTable() }
+
+        dropSelf(ModBlocks.OAK_BED.block.get())
+        add(ModBlocks.OAK_BED.block.get()) {_ -> createSingleItemTable(ModItems.OAK_BED.get()) }
     }
     
 }

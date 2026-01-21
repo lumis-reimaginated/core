@@ -18,26 +18,24 @@ class BlockStates : BlockStateProvider {
     }
     
     override fun registerStatesAndModels() {
-        
-//        blockWithItem(ModBlocks.SILICON_BLOCK)
-//        
-//        getVariantBuilder(ModBlocks.LITOGRAPHY_MACHINE.block.get())
-//            .forAllStates { state ->
-//            val dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING)
-//
-//            val rotY = when (dir) {
-//                Direction.SOUTH -> 0
-//                Direction.WEST  -> 90
-//                Direction.NORTH -> 180
-//                Direction.EAST  -> 270
-//                else -> 0
-//            }
-//
-//            ConfiguredModel.builder()
-//                .modelFile(models().getExistingFile(modLoc("block/litography_machine")))
-//                .rotationY(rotY)
-//                .build()
-//        }
+
+        getVariantBuilder(ModBlocks.OAK_BED.block.get())
+            .forAllStates { state ->
+            val dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING)
+
+            val rotY = when (dir) {
+                Direction.SOUTH -> 0
+                Direction.WEST  -> 90
+                Direction.NORTH -> 180
+                Direction.EAST  -> 270
+                else -> 0
+            }
+
+            ConfiguredModel.builder()
+                .modelFile(models().getExistingFile(modLoc("block/oak_bed")))
+                .rotationY(rotY)
+                .build()
+        }
     }
     
     

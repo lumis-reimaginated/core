@@ -50,7 +50,7 @@ class Recipes : RecipeProvider, IConditionBuilder {
 
         ShapedRecipeBuilder.shaped(
             RecipeCategory.FOOD,
-            ModItems.QUARTZ_HEART.get())
+            ModItems.PRISMARINE_HEART.get())
 
             .define('P', Items.PRISMARINE_SHARD)
             .define('C', Items.HEART_OF_THE_SEA)

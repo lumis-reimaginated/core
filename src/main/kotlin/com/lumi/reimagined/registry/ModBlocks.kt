@@ -1,15 +1,18 @@
 package com.lumi.reimagined.registry
 
 import com.lumi.reimagined.Reimagined.Companion.MOD_ID
+import com.lumi.reimagined.blockEntities.BedBlockEntity
+import com.lumi.reimagined.blocks.ExtensionBlock
+import com.lumi.reimagined.blocks.OakBed
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.BlockItem
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockBehaviour
-import net.minecraft.world.level.material.MapColor
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -21,7 +24,22 @@ object ModBlocks {
     val BLOCKS: DeferredRegister.Blocks = DeferredRegister.createBlocks(MOD_ID)
     val BLOCK_ENTITIES: DeferredRegister<BlockEntityType<*>> = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MOD_ID)
 
-    
+    val EXTENSION_BLOCK = registerRawBlock("extension_block") { ExtensionBlock() }
+
+    val OAK_BED = registerBlockWithEntity("oak_bed", ::BedBlockEntity)
+        { OakBed(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.of()
+            .strength(0.2f)
+            .sound(SoundType.WOOD)) }
+
+
+    fun <T1: Block> registerRawBlock(
+        name: String,
+        block: Supplier<T1>
+    ): DeferredBlock<T1> {
+        val block = BLOCKS.register(name, block)
+        return block;
+    }
+
     fun <T1: Block> registerBasicBlock(
         name: String,
         block: Supplier<T1>
