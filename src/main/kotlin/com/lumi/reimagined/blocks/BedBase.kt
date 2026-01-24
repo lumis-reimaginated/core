@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DirectionProperty
+import net.minecraft.world.level.block.state.properties.EnumProperty
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
@@ -27,6 +29,7 @@ open class BedBase(props: Properties) : BaseEntityBlock(props.noOcclusion()) {
 
     companion object {
         val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
+        val COLOR: EnumProperty<DyeColor> = EnumProperty.create("color", DyeColor::class.java)
         val CODEC: MapCodec<BedBase> = simpleCodec(::BedBase)
     }
 
@@ -46,7 +49,8 @@ open class BedBase(props: Properties) : BaseEntityBlock(props.noOcclusion()) {
 
     init {
         registerDefaultState(stateDefinition.any()
-            .setValue(FACING, Direction.NORTH))
+            .setValue(FACING, Direction.NORTH)
+            .setValue(COLOR, DyeColor.RED))
     }
 
     override fun codec(): MapCodec<out BedBase?> = CODEC
@@ -54,7 +58,7 @@ open class BedBase(props: Properties) : BaseEntityBlock(props.noOcclusion()) {
     override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity = BedBlockEntity(pos, state)
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block?, BlockState?>) {
-        builder.add(FACING)
+        builder.add(FACING, COLOR)
     }
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
