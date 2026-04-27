@@ -5,6 +5,11 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.0.0'
 }
 
+def modProjects = [
+        project,
+        project(":mods:furniture"),
+]
+
 tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
@@ -13,7 +18,6 @@ version = mod_version
 group = mod_group_id
 
 repositories {
-    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
 }
 
@@ -30,6 +34,10 @@ runs {
         systemProperty 'forge.logging.console.level', 'debug'
 
         modSource project.sourceSets.main
+
+        modProjects.each {
+            modSource it.sourceSets.main
+        }
     }
 
     client {
@@ -60,12 +68,9 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
 
-    // Create
-    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
-    implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
-    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
-    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
-    implementation("com.tterrag.registrate:Registrate:${registrate_version}")
+    modProjects.each {
+        implementation it
+    }
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -79,7 +84,8 @@ tasks.withType(ProcessResources).configureEach {
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_authors            : mod_authors,
-            mod_description        : mod_description
+            mod_description        : mod_description,
+            issue_tracker_url      : issue_tracker_url,
     ]
     inputs.properties replaceProperties
 
